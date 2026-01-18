@@ -1,0 +1,1 @@
+#Handles authentication logic like password hashing and JWT tokens.

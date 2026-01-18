@@ -1,0 +1,1 @@
+#Defines reusable dependencies (e.g., current user, DB session).

@@ -1,0 +1,1 @@
+#Stores global app settings like secret keys and environment variables.
