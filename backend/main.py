@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from database.database import engine
 from models.user import User
 from database.database import Base
+from routers.auth import router as auth_router
 
 load_dotenv()
 
