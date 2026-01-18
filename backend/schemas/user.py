@@ -14,7 +14,7 @@ class UserLogin(BaseModel):
 
 
 class UserResponse(BaseModel):
-    id: int
+    id: str
     name: str
     email: EmailStr
     role: str
