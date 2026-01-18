@@ -1,8 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
+from database.database import engine
+from models.user import User
+from database.database import Base
 
 load_dotenv()
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="Secured RBAC & Auth System",
