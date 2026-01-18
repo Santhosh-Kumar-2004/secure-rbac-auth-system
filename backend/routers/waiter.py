@@ -9,7 +9,7 @@ router = APIRouter(
 
 @router.get("/orders")
 def waiter_orders(
-    current_user: User = Depends(require_roles("waiter"))
+    current_user: User = Depends(require_roles("waiter", "admin"))
 ):
     return {
         "message": "Waiter orders access",
