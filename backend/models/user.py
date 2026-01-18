@@ -12,6 +12,8 @@ class User(Base):
         default=lambda: str(uuid.uuid4()),
         index=True
     )
+    
+    
     name = Column(String(100), nullable=False)
     email = Column(String(255), unique=True, index=True, nullable=False)
     password_hash = Column(String, nullable=False)
