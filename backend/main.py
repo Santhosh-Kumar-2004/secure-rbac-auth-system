@@ -32,3 +32,4 @@ def root_router():
 def health_check():
     return {"status": "ok"}
 
+app.include_router(auth_router)
