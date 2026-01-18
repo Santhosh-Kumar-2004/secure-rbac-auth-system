@@ -5,6 +5,10 @@ from database.database import engine
 from models.user import User
 from database.database import Base
 from routers.auth import router as auth_router
+from routers.admin import router as admin_router
+from routers.manager import router as manager_router
+from routers.chef import router as chef_router
+from routers.waiter import router as waiter_router
 
 load_dotenv()
 
@@ -33,3 +37,7 @@ def health_check():
     return {"status": "ok"}
 
 app.include_router(auth_router)
+app.include_router(admin_router)
+app.include_router(manager_router)
+app.include_router(chef_router)
+app.include_router(waiter_router)
