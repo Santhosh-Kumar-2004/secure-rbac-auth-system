@@ -20,7 +20,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route path="/" element={
-            <ProtectedRoute allowedRoles={["admin"]}>
+            <ProtectedRoute allowedRoles={["admin", "user", "manager", "chef", "waiter"]}>
               <Home />
             </ProtectedRoute>
           } />
