@@ -18,6 +18,13 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink 
+          to="/user" 
+          className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+        >
+          User Panel
+        </NavLink>
+
+        <NavLink 
           to="/admin" 
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
@@ -28,7 +35,7 @@ export default function Navbar() {
           to="/chef" 
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
-          Chef Dashboard
+          Chef Panle
         </NavLink>
       </div>
 

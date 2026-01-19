@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDash";
 import Home from "./pages/Home";
-// import UserDashboard from "./pages/UserDash";
+import UserDashboard from "./pages/UserDash";
 import ChefDashboard from "./pages/ChefDash";
 // import WaiterDashboard from "./pages/WaiterDash";
 // import ManagerDashboard from "./pages/ManagerDash";
@@ -49,11 +49,11 @@ function App() {
             </ProtectedRoute>
           } /> */}
 
-          {/* <Route path="/dashboard" element={
+          <Route path="/user" element={
             <ProtectedRoute allowedRoles={["user"]}>
               <UserDashboard />
             </ProtectedRoute>
-          } /> */}
+          } />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
