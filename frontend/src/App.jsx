@@ -5,6 +5,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDash";
+import Home from "./pages/Home";
 // import UserDashboard from "./pages/UserDash";
 // import ChefDashboard from "./pages/ChefDash";
 // import WaiterDashboard from "./pages/WaiterDash";
@@ -17,6 +18,12 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path="/" element={
+            <ProtectedRoute allowedRoles={["admin"]}>
+              <Home />
+            </ProtectedRoute>
+          } />
 
           <Route path="/admin" element={
             <ProtectedRoute allowedRoles={["admin"]}>
