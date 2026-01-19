@@ -4,7 +4,7 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-// import AdminDashboard from "./pages/AdminDash";
+import AdminDashboard from "./pages/AdminDash";
 // import UserDashboard from "./pages/UserDash";
 // import ChefDashboard from "./pages/ChefDash";
 // import WaiterDashboard from "./pages/WaiterDash";
@@ -18,31 +18,31 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* <Route path="/admin" element={
+          <Route path="/admin" element={
             <ProtectedRoute allowedRoles={["admin"]}>
               <AdminDashboard />
             </ProtectedRoute>
           } />
 
-          <Route path="/chef" element={
+          {/* <Route path="/chef" element={
             <ProtectedRoute allowedRoles={["chef"]}>
               <ChefDashboard />
             </ProtectedRoute>
-          } />
+          } /> */}
 
-          <Route path="/waiter" element={
+          {/* <Route path="/waiter" element={
             <ProtectedRoute allowedRoles={["waiter"]}>
               <WaiterDashboard />
             </ProtectedRoute>
-          } />
+          } /> */}
 
-          <Route path="/manager" element={
+          {/* <Route path="/manager" element={
             <ProtectedRoute allowedRoles={["manager", "admin"]}>
               <ManagerDashboard />
             </ProtectedRoute>
-          } />
+          } /> */}
 
-          <Route path="/dashboard" element={
+          {/* <Route path="/dashboard" element={
             <ProtectedRoute allowedRoles={["user"]}>
               <UserDashboard />
             </ProtectedRoute>
