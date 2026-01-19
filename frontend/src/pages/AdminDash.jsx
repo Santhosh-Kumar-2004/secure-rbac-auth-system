@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
 export default function AdminDashboard() {
   const user = JSON.parse(localStorage.getItem("user"));
