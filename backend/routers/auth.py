@@ -11,6 +11,10 @@ from core.security import (
     create_access_token
 )
 
+from fastapi import APIRouter, Depends, status
+from core.dependencies import get_current_user
+from schemas.user import UserResponse
+
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 from sqlalchemy.exc import IntegrityError
@@ -137,3 +141,15 @@ def login_user(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Login failed"
         )
+
+
+@router.get(
+    "/me",
+    response_model=UserResponse,
+    status_code=status.HTTP_200_OK,
+    summary="Get current authenticated user",
+)
+async def get_me(
+    current_user: UserResponse = Depends(get_current_user),
+) -> UserResponse:
+    return current_user
