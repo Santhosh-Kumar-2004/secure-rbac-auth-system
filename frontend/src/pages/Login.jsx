@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const { login } = useAuth();
@@ -52,6 +53,10 @@ return (
 
             <div className="login-footer">
                 <p>Forgot password? Contact your System Administrator</p>
+            </div>
+
+            <div className="auth-footer">
+                <p>Don't have an account? <Link to="/register">Register</Link></p>
             </div>
         </div>
     </div>
