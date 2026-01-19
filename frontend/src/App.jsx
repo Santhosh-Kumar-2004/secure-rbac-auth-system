@@ -8,7 +8,7 @@ import AdminDashboard from "./pages/AdminDash";
 import Home from "./pages/Home";
 import UserDashboard from "./pages/UserDash";
 import ChefDashboard from "./pages/ChefDash";
-// import WaiterDashboard from "./pages/WaiterDash";
+import WaiterDashboard from "./pages/WaiterDash";
 // import ManagerDashboard from "./pages/ManagerDash";
 
 function App() {
@@ -37,11 +37,11 @@ function App() {
             </ProtectedRoute>
           } />
 
-          {/* <Route path="/waiter" element={
-            <ProtectedRoute allowedRoles={["waiter"]}>
+          <Route path="/waiter" element={
+            <ProtectedRoute allowedRoles={["waiter", "admin"]}>
               <WaiterDashboard />
             </ProtectedRoute>
-          } /> */}
+          } />
 
           {/* <Route path="/manager" element={
             <ProtectedRoute allowedRoles={["manager", "admin"]}>

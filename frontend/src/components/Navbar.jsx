@@ -37,6 +37,12 @@ export default function Navbar() {
         >
           Chef Panle
         </NavLink>
+        <NavLink 
+          to="/waiter" 
+          className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
+        >
+          Waiter Panle
+        </NavLink>
       </div>
 
       <div className="nav-user-controls">
