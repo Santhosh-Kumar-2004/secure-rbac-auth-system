@@ -1,8 +1,18 @@
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    await logout();
+    navigate("/");
+  };
   const { user } = useAuth();
 
   if (!user) return null;
@@ -60,7 +70,7 @@ export default function Navbar() {
       </div>
 
       <div className="nav-user-controls">
-        <button className="logout-trigger">Sign Out</button>
+        <button className="logout-trigger" onClick={handleLogout}>Sign Out</button>
       </div>
     </nav>
   );
