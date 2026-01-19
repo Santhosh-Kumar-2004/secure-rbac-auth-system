@@ -55,7 +55,7 @@ export default function Navbar() {
           to="/chef" 
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
-          Chef Panle
+          Chef Panel
         </NavLink>
         )}
 
@@ -64,7 +64,7 @@ export default function Navbar() {
           to="/waiter" 
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
-          Waiter Panle
+          Waiter Panel
         </NavLink>
         )}
       </div>
