@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from database.database import engine
-from models.user import User
 from database.database import Base
 from routers.auth import router as auth_router
 from routers.admin import router as admin_router
