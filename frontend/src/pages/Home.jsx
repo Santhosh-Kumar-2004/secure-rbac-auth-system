@@ -1,9 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Home.css";
+import Navbar from "../components/Navbar"
 
 export default function Home() {
   return (
+    <>
+        <Navbar />
     <div className="home-portal-wrapper">
       <div className="home-content-card">
         <header className="home-header">
@@ -43,5 +46,6 @@ export default function Home() {
         </footer>
         </div>
       </div>
+      </>
   )
 }
