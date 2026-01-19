@@ -25,10 +25,10 @@ export default function Navbar() {
         </NavLink>
 
         <NavLink 
-          to="/login" 
+          to="/chef" 
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
-          Login
+          Chef Dashboard
         </NavLink>
       </div>
 

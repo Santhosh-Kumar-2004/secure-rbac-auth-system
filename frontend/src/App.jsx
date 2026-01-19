@@ -31,11 +31,11 @@ function App() {
             </ProtectedRoute>
           } />
 
-          {/* <Route path="/chef" element={
-            <ProtectedRoute allowedRoles={["chef"]}>
+          <Route path="/chef" element={
+            <ProtectedRoute allowedRoles={["chef", "admin"]}>
               <ChefDashboard />
             </ProtectedRoute>
-          } /> */}
+          } />
 
           {/* <Route path="/waiter" element={
             <ProtectedRoute allowedRoles={["waiter"]}>
