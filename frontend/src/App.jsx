@@ -7,7 +7,7 @@ import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDash";
 import Home from "./pages/Home";
 // import UserDashboard from "./pages/UserDash";
-// import ChefDashboard from "./pages/ChefDash";
+import ChefDashboard from "./pages/ChefDash";
 // import WaiterDashboard from "./pages/WaiterDash";
 // import ManagerDashboard from "./pages/ManagerDash";
 
