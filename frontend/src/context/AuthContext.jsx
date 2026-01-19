@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  // 🔥 THIS IS THE FIX
   useEffect(() => {
     const loadUser = async () => {
       try {
