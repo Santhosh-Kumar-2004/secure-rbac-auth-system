@@ -14,7 +14,7 @@ function UserDashboard() {
           </div>
           <div className="status-indicator">
             <span className="pulse-dot"></span>
-            System Online
+            User Online
           </div>
         </header>
 
