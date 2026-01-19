@@ -1,7 +1,12 @@
 import { NavLink } from "react-router-dom";
 import "./Navbar.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
+  const { user } = useAuth();
+
+  if (!user) return null;
+  
   return (
     <nav className="main-navbar">
       <div className="nav-logo">

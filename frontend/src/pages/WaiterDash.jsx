@@ -9,7 +9,7 @@ function WaiterDashboard() {
         {/* Header Section */}
         <header className="dashboard-header">
           <div className="welcome-section">
-            <h1>Waiter DashCam</h1>
+            <h1>Waiter Dashboard</h1>
             <p>Role-Based Access Control (RBAC) Management Portal</p>
           </div>
           <div className="status-indicator">
