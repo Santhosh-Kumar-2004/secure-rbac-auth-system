@@ -58,7 +58,7 @@ export default function Register() {
             />
           </div>
 
-          <div className="input-field">
+          {/* <div className="input-field">
             <label>System Role (RBAC)</label>
             <select 
               className="role-select"
@@ -72,7 +72,7 @@ export default function Register() {
               <option value="manager">Operations Manager</option>
             </select>
             <small className="helper-text">This determines your access level across the platform.</small>
-          </div>
+          </div> */}
 
           <button type="submit" className="register-btn">
             Initialize Account
