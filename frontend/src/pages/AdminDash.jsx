@@ -1,93 +1,92 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import "../styles/Dashboard.css";
+import "./Dashboard.css";
 
-export default function AdminDashboard() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const navigate = useNavigate();
-
-  // Template Data - Change these for different roles
-  const stats = [
-    { label: "Total Users", value: "24", icon: "👥" },
-    { label: "Active Sessions", value: "12", icon: "🔑" },
-    { label: "System Health", value: "99.9%", icon: "🛡️" },
-    { label: "Pending Logs", value: "5", icon: "📂" },
-  ];
-
-  const quickActions = [
-    { label: "Manage Users", route: "/admin/users", icon: "⚙️", color: "#6366f1" },
-    { label: "Role Permissions", route: "/admin/rbac", icon: "🔐", color: "#10b981" },
-    { label: "Audit Logs", route: "/admin/logs", icon: "📋", color: "#f59e0b" },
-    { label: "System Settings", route: "/admin/settings", icon: "🛠️", color: "#64748b" },
-  ];
-
+function AdminDashboard() {
   return (
     <div className="dashboard-wrapper">
       <Navbar />
       
       <div className="dashboard-container">
+        {/* Header Section */}
         <header className="dashboard-header">
           <div className="welcome-section">
-            <h1>System Control Panel</h1>
-            <p>Welcome back, <span className="user-name">{user?.name || "Admin"}</span>. You have <strong>Full Access</strong> privileges.</p>
+            <h1>System Administrator</h1>
+            <p>Role-Based Access Control (RBAC) Management Portal</p>
           </div>
-          <div className="role-badge">Role: {user?.role?.toUpperCase()}</div>
+          <div className="status-indicator">
+            <span className="pulse-dot"></span>
+            System Online
+          </div>
         </header>
 
-        {/* Stats Grid */}
-        <section className="stats-grid">
-          {stats.map((stat, index) => (
-            <div className="stat-card" key={index}>
-              <div className="stat-icon">{stat.icon}</div>
-              <div className="stat-info">
-                <span className="stat-value">{stat.value}</span>
-                <span className="stat-label">{stat.label}</span>
-              </div>
+        {/* Stats Section */}
+        <div className="stats-row">
+          <div className="stat-box">
+            <span className="stat-icon">👤</span>
+            <div className="stat-text">
+              <span className="stat-num">150+</span>
+              <span className="stat-label">Total Users</span>
             </div>
-          ))}
-        </section>
+          </div>
+          <div className="stat-box">
+            <span className="stat-icon">🛡️</span>
+            <div className="stat-text">
+              <span className="stat-num">5</span>
+              <span className="stat-label">Active Roles</span>
+            </div>
+          </div>
+          <div className="stat-box">
+            <span className="stat-icon">📡</span>
+            <div className="stat-text">
+              <span className="stat-num">99.9%</span>
+              <span className="stat-label">Uptime</span>
+            </div>
+          </div>
+        </div>
 
-        {/* Action Grid */}
-        <section className="main-content-area">
-          <div className="action-section">
+        {/* Main Interface */}
+        <div className="dashboard-grid">
+          {/* Action Hub */}
+          <section className="action-hub">
             <h3>Quick Management Actions</h3>
-            <div className="action-grid">
-              {quickActions.map((action, index) => (
-                <button 
-                  key={index} 
-                  className="action-card"
-                  onClick={() => navigate(action.route)}
-                >
-                  <span className="action-icon" style={{ backgroundColor: action.color }}>
-                    {action.icon}
-                  </span>
-                  <span className="action-label">{action.label}</span>
-                </button>
-              ))}
+            <div className="hub-grid">
+              <div className="hub-item">
+                <span className="hub-emoji">⚙️</span>
+                <p>Edit Config</p>
+              </div>
+              <div className="hub-item">
+                <span className="hub-emoji">📝</span>
+                <p>User Logs</p>
+              </div>
+              <div className="hub-item">
+                <span className="hub-emoji">🔒</span>
+                <p>Security</p>
+              </div>
+              <div className="hub-item">
+                <span className="hub-emoji">📈</span>
+                <p>Analytics</p>
+              </div>
             </div>
-          </div>
+          </section>
 
-          {/* Activity Placeholder */}
-          <div className="activity-section">
-            <h3>Recent Security Events</h3>
-            <div className="activity-list">
-              <div className="activity-item">
-                <span className="time">10:45 AM</span>
-                <p>New user <strong>Sarah Miller</strong> registered as <em>Editor</em>.</p>
-              </div>
-              <div className="activity-item">
-                <span className="time">09:12 AM</span>
-                <p>Role permissions updated for <strong>Service Operator</strong>.</p>
-              </div>
-              <div className="activity-item">
-                <span className="time">Yesterday</span>
-                <p>System backup completed successfully.</p>
-              </div>
+          {/* Activity Feed Placeholder */}
+          <aside className="activity-feed">
+            <h3>Recent System Logs</h3>
+            <div className="log-entry">
+              <strong>Admin</strong> updated permissions for <em>Chef</em>.
             </div>
-          </div>
-        </section>
+            <div className="log-entry">
+              <strong>System</strong> auto-archived logs (24h).
+            </div>
+            <div className="log-entry">
+              <strong>Waiter</strong> login attempt from new IP.
+            </div>
+          </aside>
+        </div>
       </div>
     </div>
   );
 }
+
+export default AdminDashboard;
