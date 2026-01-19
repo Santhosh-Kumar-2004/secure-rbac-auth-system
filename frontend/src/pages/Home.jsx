@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./Home.css";
+import "../styles/Home.css";
 
 export default function Home() {
   return (
@@ -40,8 +40,8 @@ export default function Home() {
 
         <footer className="home-footer">
           <p>System Version 1.0.4 • Protected by Enterprise Security</p>
+        </footer>
         </div>
       </div>
-    </div>
-  );
+  )
 }
