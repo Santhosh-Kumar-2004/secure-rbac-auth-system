@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import "./Dashboard.css";
+import "../styles/Dashboard.css";
 
 function AdminDashboard() {
   return (
