@@ -1,9 +1,10 @@
+import Navbar from "../components/Navbar";
 import "../styles/Dashboard.css";
 
 function AdminDashboard() {
   return (
     <div className="dashboard-wrapper">
-      
+      <Navbar />
       <div className="dashboard-container">
         {/* Header Section */}
         <header className="dashboard-header">
