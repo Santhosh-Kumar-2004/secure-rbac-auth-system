@@ -4,11 +4,11 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import AdminDashboard from "./pages/AdminDashboard";
-import UserDashboard from "./pages/UserDashboard";
-import ChefDashboard from "./pages/ChefDashboard";
-import WaiterDashboard from "./pages/WaiterDashboard";
-import ManagerDashboard from "./pages/ManagerDashboard";
+import AdminDashboard from "./pages/AdminDash";
+import UserDashboard from "./pages/UserDash";
+import ChefDashboard from "./pages/ChefDash";
+import WaiterDashboard from "./pages/WaiterDash";
+import ManagerDashboard from "./pages/ManagerDash";
 
 function App() {
   return (
