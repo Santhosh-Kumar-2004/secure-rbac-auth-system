@@ -40,7 +40,7 @@ def get_current_user(
             detail="Invalid token"
         )
 
-    user = db.query(User).filter(User.id == int(user_id)).first()
+    user = db.query(User).filter(User.id == user_id).first()
 
     if not user or not user.is_active:
         raise HTTPException(
