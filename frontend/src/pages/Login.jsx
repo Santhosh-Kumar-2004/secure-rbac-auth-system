@@ -15,45 +15,45 @@ export default function Login() {
     navigate("/dashboard");
   };
 
-  return (
+return (
     <div className="login-page-wrapper">
-      <div className="login-card">
-        <div className="login-header">
-          <div className="logo-icon">🍴</div>
-          <h1>KitchenPro</h1>
-          <p>Sign in to manage your restaurant</p>
+        <div className="login-card">
+            <div className="login-header">
+                <div className="logo-icon">🔐</div>
+                <h1>SecureAuth</h1>
+                <p>Sign in to your account</p>
+            </div>
+
+            <form className="login-form" onSubmit={handleSubmit}>
+                <div className="input-group">
+                    <label>Email Address</label>
+                    <input 
+                        type="email"
+                        placeholder="your.email@company.com" 
+                        required
+                        onChange={e => setEmail(e.target.value)} 
+                    />
+                </div>
+
+                <div className="input-group">
+                    <label>Password</label>
+                    <input 
+                        type="password" 
+                        placeholder="••••••••" 
+                        required
+                        onChange={e => setPassword(e.target.value)} 
+                    />
+                </div>
+
+                <button type="submit" className="login-submit-btn">
+                    Sign In
+                </button>
+            </form>
+
+            <div className="login-footer">
+                <p>Forgot password? Contact your System Administrator</p>
+            </div>
         </div>
-
-        <form className="login-form" onSubmit={handleSubmit}>
-          <div className="input-group">
-            <label>Email Address</label>
-            <input 
-              type="email"
-              placeholder="name@restaurant.com" 
-              required
-              onChange={e => setEmail(e.target.value)} 
-            />
-          </div>
-
-          <div className="input-group">
-            <label>Password</label>
-            <input 
-              type="password" 
-              placeholder="••••••••" 
-              required
-              onChange={e => setPassword(e.target.value)} 
-            />
-          </div>
-
-          <button type="submit" className="login-submit-btn">
-            Login to Dashboard
-          </button>
-        </form>
-
-        <div className="login-footer">
-          <p>Forgot password? Contact your Administrator</p>
-        </div>
-      </div>
     </div>
-  );
+);
 }
