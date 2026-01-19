@@ -1,0 +1,47 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Home.css";
+
+export default function Home() {
+  return (
+    <div className="home-portal-wrapper">
+      <div className="home-content-card">
+        <header className="home-header">
+          <div className="system-logo">🛡️</div>
+          <h1>Identity Access Portal</h1>
+          <p>Secure Role-Based Access Control (RBAC) Gateway</p>
+        </header>
+
+        <section className="home-hero-section">
+          <div className="feature-grid">
+            <div className="feature-item">
+              <span className="feature-icon">🔒</span>
+              <p>Encrypted Auth</p>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">🔑</span>
+              <p>Role Logic</p>
+            </div>
+            <div className="feature-item">
+              <span className="feature-icon">📊</span>
+              <p>Audit Trails</p>
+            </div>
+          </div>
+
+          <div className="home-actions">
+            <Link to="/login" className="btn btn-primary">
+              System Login
+            </Link>
+            <Link to="/register" className="btn btn-secondary">
+              Create Identity
+            </Link>
+          </div>
+        </section>
+
+        <footer className="home-footer">
+          <p>System Version 1.0.4 • Protected by Enterprise Security</p>
+        </div>
+      </div>
+    </div>
+  );
+}
