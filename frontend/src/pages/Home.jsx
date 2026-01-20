@@ -6,6 +6,7 @@ import useIdleLogout from "../hooks/useIdleLogout";
 import IdleTimerDisplay from "../components/IdleTimerDisplay";
 
 export default function Home() {
+  const { remainingTime } = useIdleLogout();
   return (
     <>
         <Navbar />
@@ -34,12 +35,8 @@ export default function Home() {
           </div>
 
           <div className="home-actions">
-            <Link to="/login" className="btn btn-primary">
-              System Login
-            </Link>
-            <Link to="/register" className="btn btn-secondary">
-              Create Identity
-            </Link>
+          <IdleTimerDisplay remainingTime={remainingTime} />
+
           </div>
         </section>
 
