@@ -14,6 +14,9 @@ from core.security import (
 from fastapi import APIRouter, Depends, status
 from core.dependencies import get_current_user
 from schemas.user import UserResponse
+from models.refresh_token import RefreshToken
+from core.security import create_refresh_token
+
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
