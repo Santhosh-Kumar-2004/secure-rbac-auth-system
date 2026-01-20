@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import useIdleLogout from "./hooks/useIdleLogout";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -12,6 +13,7 @@ import WaiterDashboard from "./pages/WaiterDash";
 // import ManagerDashboard from "./pages/ManagerDash";
 
 function App() {
+  useIdleLogout()
   return (
     <AuthProvider>
       <BrowserRouter>
