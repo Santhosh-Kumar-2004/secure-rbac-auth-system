@@ -110,7 +110,7 @@ def login_user(
             db.delete(existing_token)
             db.commit()
 
-        # 🔐 Create refresh token
+        # Create refresh token
         refresh_token_value, refresh_expires_at = create_refresh_token()
 
         refresh_token = RefreshToken(
@@ -122,12 +122,12 @@ def login_user(
         db.add(refresh_token)
         db.commit()
 
-        # 🔐 Create access token
+        # Create access token
         access_token = create_access_token(
             data={"sub": str(user.id)}
         )
 
-        # 🍪 Set access token cookie
+        # Set access token cookie
         response.set_cookie(
             key="access_token",
             value=access_token,
@@ -137,7 +137,7 @@ def login_user(
             max_age=60 * 30    # 30 minutes
         )
 
-        # 🍪 Set refresh token cookie
+        # Set refresh token cookie
         response.set_cookie(
             key="refresh_token",
             value=refresh_token_value,
