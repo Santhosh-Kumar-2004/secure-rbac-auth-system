@@ -3,7 +3,7 @@ import api from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const IDLE_TIME = 1 * 60 * 1000;
+const IDLE_TIME = 10 * 60 * 1000;
 
 export default function useIdleLogout() {
   const { user, logout } = useAuth();
