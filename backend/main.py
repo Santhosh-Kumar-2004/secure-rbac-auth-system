@@ -8,6 +8,8 @@ from routers.admin import router as admin_router
 from routers.manager import router as manager_router
 from routers.chef import router as chef_router
 from routers.waiter import router as waiter_router
+from models.refresh_token import RefreshToken
+
 
 load_dotenv()
 
