@@ -50,3 +50,6 @@ def create_refresh_token():
     token = secrets.token_urlsafe(64)
     expires_at = datetime.utcnow() + timedelta(hours=REFRESH_TOKEN_EXPIRE_HOURS)
     return token, expires_at
+
+def is_refresh_token_expired(expires_at: datetime) -> bool:
+    return datetime.utcnow() > expires_at
