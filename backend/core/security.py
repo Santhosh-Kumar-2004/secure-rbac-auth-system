@@ -4,6 +4,7 @@ from datetime import datetime, timedelta
 from jose import jwt
 from dotenv import load_dotenv
 import os
+import secrets
 
 load_dotenv()
 
@@ -44,3 +45,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     )
 
     return encoded_jwt
+
+def create_refresh_token():
+    token = secrets.token_urlsafe(64)
+    expires_at = datetime.utcnow() + timedelta(hours=REFRESH_TOKEN_EXPIRE_HOURS)
+    return token, expires_at
