@@ -191,6 +191,7 @@ async def get_me(
 ) -> UserResponse:
     return current_user
 
+
 @router.post("/refresh", status_code=status.HTTP_200_OK)
 def refresh_access_token(
     request: Request,
