@@ -16,6 +16,8 @@ from core.dependencies import get_current_user
 from schemas.user import UserResponse
 from models.refresh_token import RefreshToken
 from core.security import create_refresh_token
+from fastapi import Request
+from datetime import datetime, timedelta
 
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
@@ -188,3 +190,82 @@ async def get_me(
     current_user: UserResponse = Depends(get_current_user),
 ) -> UserResponse:
     return current_user
+
+@router.post("/refresh", status_code=status.HTTP_200_OK)
+def refresh_access_token(
+    request: Request,
+    response: Response,
+    db: Session = Depends(get_db)
+):
+    try:
+        # Get refresh token from HTTP-only cookie
+        refresh_token_value = request.cookies.get("refresh_token")
+
+        if not refresh_token_value:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Refresh token missing"
+            )
+
+        # Look up refresh token in database (stateful validation)
+        refresh_token = (
+            db.query(RefreshToken)
+            .filter(RefreshToken.token == refresh_token_value)
+            .first()
+        )
+
+        if not refresh_token:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid refresh token"
+            )
+
+        # Check refresh token expiration
+        if refresh_token.expires_at < datetime.utcnow():
+            db.delete(refresh_token)
+            db.commit()
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Refresh token expired"
+            )
+
+        # Sliding session: extend refresh token expiry
+        refresh_token.expires_at = (
+            datetime.utcnow() + timedelta(hours=6)
+        )
+        db.commit()
+
+        # Issue a new access token
+        new_access_token = create_access_token(
+            data={"sub": str(refresh_token.user_id)}
+        )
+
+        # Set new access token cookie
+        response.set_cookie(
+            key="access_token",
+            value=new_access_token,
+            httponly=True,
+            secure=False,      # True in production (HTTPS)
+            samesite="lax",
+            max_age=60 * 30    # 30 minutes
+        )
+
+        return {"message": "Access token refreshed"}
+
+    except HTTPException:
+        # Re-raise expected authentication errors
+        raise
+
+    except SQLAlchemyError:
+        # Handle database-related errors
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Database error during token refresh"
+        )
+
+    except Exception:
+        # Catch unexpected errors
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to refresh access token"
+        )
