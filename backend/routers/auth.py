@@ -175,9 +175,28 @@ def login_user(
 
         
 @router.post("/logout")
-def logout(response: Response):
+def logout_user(
+    request: Request,
+    response: Response,
+    db: Session = Depends(get_db)
+):
+    refresh_token_value = request.cookies.get("refresh_token")
+
+    if refresh_token_value:
+        token = db.query(RefreshToken).filter(
+            RefreshToken.token == refresh_token_value
+        ).first()
+
+        if token:
+            db.delete(token)
+            db.commit()
+
+    # Clear cookies
     response.delete_cookie("access_token")
-    return {"message": "Logged out"}
+    response.delete_cookie("refresh_token")
+
+    return {"message": "Logged out successfully"}
+
 
 
 @router.get(
