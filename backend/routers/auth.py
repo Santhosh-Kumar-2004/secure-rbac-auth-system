@@ -75,14 +75,14 @@ def login_user(
     db: Session = Depends(get_db)
 ):
     try:
-        
+        # Find user
         user = (
             db.query(User)
             .filter(User.email == credentials.email.lower())
             .first()
         )
 
-        
+        # Invalid credentials
         if not user or not verify_password(
             credentials.password,
             user.password_hash
@@ -92,29 +92,60 @@ def login_user(
                 detail="Invalid email or password"
             )
 
-        
+        # Inactive account
         if not user.is_active:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="Account is disabled"
             )
 
-        
+        # Enforce single session (delete old refresh token)
+        existing_token = (
+            db.query(RefreshToken)
+            .filter(RefreshToken.user_id == user.id)
+            .first()
+        )
+
+        if existing_token:
+            db.delete(existing_token)
+            db.commit()
+
+        # 🔐 Create refresh token
+        refresh_token_value, refresh_expires_at = create_refresh_token()
+
+        refresh_token = RefreshToken(
+            user_id=user.id,
+            token=refresh_token_value,
+            expires_at=refresh_expires_at
+        )
+
+        db.add(refresh_token)
+        db.commit()
+
+        # 🔐 Create access token
         access_token = create_access_token(
             data={"sub": str(user.id)}
         )
 
-        
+        # 🍪 Set access token cookie
         response.set_cookie(
             key="access_token",
             value=access_token,
             httponly=True,
-            secure=False,          # Set True in production (HTTPS)
+            secure=False,      # True in production (HTTPS)
             samesite="lax",
-            max_age=60 * 30        # Token expires in 30 minutes
+            max_age=60 * 30    # 30 minutes
         )
 
-        
+        # 🍪 Set refresh token cookie
+        response.set_cookie(
+            key="refresh_token",
+            value=refresh_token_value,
+            httponly=True,
+            secure=False,      # True in production (HTTPS)
+            samesite="lax"
+        )
+
         return {
             "message": "Login successful",
             "user": {
@@ -126,22 +157,20 @@ def login_user(
         }
 
     except HTTPException:
-        
         raise
 
     except SQLAlchemyError:
-        
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Database error during login"
         )
 
     except Exception:
-        
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Login failed"
         )
+
         
 @router.post("/logout")
 def logout(response: Response):
