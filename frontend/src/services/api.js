@@ -5,6 +5,10 @@ const api = axios.create({
   withCredentials: true // REQUIRED for httpOnly cookies
 });
 
+// Access token expired → auto refresh
+// Refresh token invalid → forced logout
+// Frontend never touches tokens
+// UX is seamless
 api.interceptors.response.use(
   response => response,
   async error => {
