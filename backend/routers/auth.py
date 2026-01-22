@@ -251,7 +251,7 @@ def refresh_access_token(
 
         # Sliding session: extend refresh token expiry
         refresh_token.expires_at = (
-            datetime.utcnow() + timedelta(hours=6)
+            datetime.utcnow() + timedelta(hours=2)
         )
         db.commit()
 
