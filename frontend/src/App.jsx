@@ -63,3 +63,13 @@ function App() {
 }
 
 export default App;
+
+// Argon2 password hashing
+// JWT access tokens
+// Opaque refresh tokens
+// Sliding session
+// Single-device login
+// Idle timeout
+// Forced logout
+// Backend-enforced RBAC
+// Zero token exposure to frontend
