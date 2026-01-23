@@ -20,6 +20,9 @@ ALGORITHM = os.getenv("ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "15"))
 REFRESH_TOKEN_EXPIRE_HOURS = int(os.getenv("REFRESH_TOKEN_EXPIRE_HOURS", "6"))
 
+MAX_LOGIN_ATTEMPTS = 3
+ACCOUNT_LOCK_MINUTES = 15
+
 
 def hash_password(password: str) -> str:
     return pwd_context.hash(password)
