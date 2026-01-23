@@ -31,7 +31,8 @@ from sqlalchemy.orm import Session
 @router.post("/register", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
 def register_user(
     user: UserCreate,
-    db: Session = Depends(get_db)
+    request: Request,
+    db: Session = Depends(get_db),
 ):
     try:
         if db.query(User).filter(User.email == user.email.lower()).first():
@@ -45,6 +46,17 @@ def register_user(
             email=user.email.lower(),
             password_hash=hash_password(user.password),
             role=user.role or "user"
+        )
+        context = get_request_context(request)
+        
+        write_audit_log(
+            actor=str(user.id),
+            action="LOGIN",
+            resource="auth/register",
+            result="SUCCESS",
+            ip=context["ip"],
+            user_agent=context["user_agent"],
+            metadata={"reason": "Register Successfull"}
         )
 
         
