@@ -76,6 +76,7 @@ def register_user(
 def login_user(
     credentials: UserLogin,
     response: Response,
+    request: Request,
     db: Session = Depends(get_db)
 ):
     try:
@@ -87,14 +88,27 @@ def login_user(
         )
 
         # Invalid credentials
+        context = get_request_context(request)
+
         if not user or not verify_password(
             credentials.password,
             user.password_hash
         ):
+            write_audit_log(
+                actor=user.id if user else "anonymous",
+                action="LOGIN_ATTEMPT",
+                resource="auth/login",
+                result="FAILURE",
+                ip=context["ip"],
+                user_agent=context["user_agent"],
+                metadata={"reason": "invalid_credentials"}
+            )
+
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
                 detail="Invalid email or password"
             )
+
 
         # Inactive account
         if not user.is_active:
