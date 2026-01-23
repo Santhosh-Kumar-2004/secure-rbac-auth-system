@@ -22,6 +22,14 @@ from datetime import datetime, timedelta
 from core.audit import write_audit_log
 from core.request_context import get_request_context
 
+from datetime import datetime, timedelta
+from core.security import (
+    MAX_LOGIN_ATTEMPTS,
+    ACCOUNT_LOCK_MINUTES,
+    is_account_locked
+)
+
+
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
 from sqlalchemy.exc import IntegrityError
