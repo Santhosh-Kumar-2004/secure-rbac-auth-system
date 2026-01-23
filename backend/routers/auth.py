@@ -126,21 +126,45 @@ def login_user(
             )
 
         # Invalid credentials
-        context = get_request_context(request)
-
         if not user or not verify_password(
             credentials.password,
             user.password_hash
         ):
-            write_audit_log(
-                actor=user.id if user else "anonymous",
-                action="LOGIN_ATTEMPT",
-                resource="auth/login",
-                result="FAILURE",
-                ip=context["ip"],
-                user_agent=context["user_agent"],
-                metadata={"reason": "invalid_credentials"}
-            )
+            context = get_request_context(request)
+
+            if user:
+                user.failed_login_attempts += 1
+
+                # 🚨 Lock account if threshold reached
+                if user.failed_login_attempts >= MAX_LOGIN_ATTEMPTS:
+                    user.locked_until = datetime.utcnow() + timedelta(
+                        minutes=ACCOUNT_LOCK_MINUTES
+                    )
+
+                    write_audit_log(
+                        actor=str(user.id),
+                        action="ACCOUNT_LOCKED",
+                        resource="auth/login",
+                        result="FAILURE",
+                        ip=context["ip"],
+                        user_agent=context["user_agent"],
+                        metadata={
+                            "attempts": user.failed_login_attempts,
+                            "locked_until": user.locked_until.isoformat()
+                        }
+                    )
+                else:
+                    write_audit_log(
+                        actor=str(user.id),
+                        action="LOGIN_ATTEMPT",
+                        resource="auth/login",
+                        result="FAILURE",
+                        ip=context["ip"],
+                        user_agent=context["user_agent"],
+                        metadata={"attempts": user.failed_login_attempts}
+                    )
+
+                db.commit()
 
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
