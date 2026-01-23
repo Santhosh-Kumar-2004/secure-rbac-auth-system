@@ -226,13 +226,17 @@ def login_user(
             samesite="lax"
         )
         
+        # Reset lock state
+        user.failed_login_attempts = 0
+        user.locked_until = None
+        db.commit()
+
         write_audit_log(
             actor=str(user.id),
             action="LOGIN",
             resource="auth/login",
             result="SUCCESS",
             ip=context["ip"],
-            user_agent=context["user_agent"],
             metadata={"reason": "Login Successfull"}
         )
 
