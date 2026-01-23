@@ -163,6 +163,15 @@ def login_user(
             secure=False,      # True in production (HTTPS)
             samesite="lax"
         )
+        
+        write_audit_log(
+            actor=str(user.id),
+            action="LOGIN",
+            resource="auth/login",
+            result="SUCCESS",
+            ip=context["ip"],
+            user_agent=context["user_agent"]
+        )
 
         return {
             "message": "Login successful",
