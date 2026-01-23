@@ -106,6 +106,24 @@ def login_user(
             .filter(User.email == credentials.email.lower())
             .first()
         )
+        
+        if user and is_account_locked(user):
+            context = get_request_context(request)
+
+            write_audit_log(
+                actor=str(user.id),
+                action="LOGIN_BLOCKED",
+                resource="auth/login",
+                result="FAILURE",
+                ip=context["ip"],
+                user_agent=context["user_agent"],
+                metadata={"reason": "account_locked"}
+            )
+
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Account temporarily locked due to multiple failed login attempts"
+            )
 
         # Invalid credentials
         context = get_request_context(request)
