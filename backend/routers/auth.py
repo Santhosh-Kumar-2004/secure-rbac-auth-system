@@ -229,7 +229,8 @@ def logout_user(
         resource="auth/logout",
         result="SUCCESS",
         ip=context["ip"],
-        user_agent=context["user_agent"]
+        user_agent=context["user_agent"],
+        metadata={"reason": "Logout Successfull"}
     )
 
     return {"message": "Logged out successfully"}
