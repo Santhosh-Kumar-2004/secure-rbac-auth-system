@@ -170,7 +170,8 @@ def login_user(
             resource="auth/login",
             result="SUCCESS",
             ip=context["ip"],
-            user_agent=context["user_agent"]
+            user_agent=context["user_agent"],
+            metadata={"reason": "Login Successfull"}
         )
 
         return {
