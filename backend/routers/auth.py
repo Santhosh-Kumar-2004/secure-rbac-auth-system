@@ -219,9 +219,19 @@ def logout_user(
     # Clear cookies
     response.delete_cookie("access_token")
     response.delete_cookie("refresh_token")
+    
+    context = get_request_context(request)
+
+    write_audit_log(
+        actor="anonymous",
+        action="LOGOUT",
+        resource="auth/logout",
+        result="SUCCESS",
+        ip=context["ip"],
+        user_agent=context["user_agent"]
+    )
 
     return {"message": "Logged out successfully"}
-
 
 
 @router.get(
