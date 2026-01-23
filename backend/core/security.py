@@ -56,3 +56,8 @@ def create_refresh_token():
 
 def is_refresh_token_expired(expires_at: datetime) -> bool:
     return datetime.utcnow() > expires_at
+
+def is_account_locked(user) -> bool:
+    if user.locked_until and user.locked_until > datetime.utcnow():
+        return True
+    return False
