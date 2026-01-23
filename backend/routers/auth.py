@@ -19,6 +19,8 @@ from core.security import create_refresh_token
 from fastapi import Request
 from datetime import datetime, timedelta
 
+from core.audit import write_audit_log
+from core.request_context import get_request_context
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
 
