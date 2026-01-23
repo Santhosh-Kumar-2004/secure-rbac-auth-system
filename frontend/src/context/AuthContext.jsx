@@ -28,6 +28,7 @@ export const AuthProvider = ({ children }) => {
         setUser(res.data);
       } catch (err) {
         setUser(null);
+        console.log(err)
       } finally {
         setLoading(false);
       }
